@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join('public')));
 
 app.use(cors({
   credentials: true,
@@ -30,6 +30,6 @@ app.get('/', (req, res) => {
 app.use('/projects', projectRoutes);
 app.use('/ai', airRoutes);
 app.get('*name', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.send('no routes find')
 })
 export default app;
