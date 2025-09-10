@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/User.contenxt'
-import axios from '../config/Axios'
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import axiosInstance from '../config/Axios';
 
 const Register = () => {
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ const Register = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    await axios.post('/users/register', {
+    await axiosInstance.post('/users/register', {
       email,
       password
     }).then((response) => {
