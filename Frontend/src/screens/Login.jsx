@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/User.contenxt'
 import { useNavigate, NavLink } from 'react-router-dom'
-import axios from '../config/Axios'
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import axiosInstance from '../config/Axios';
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.post('/users/login', {
+    await axiosInstance.post('/users/login', {
       email,
       password
     }).then((response) => {

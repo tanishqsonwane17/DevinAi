@@ -1,6 +1,6 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../config/Axios'
 
 const CreateProject = () => {
   const navigate = useNavigate()
@@ -10,8 +10,7 @@ const CreateProject = () => {
     try {
     const token = localStorage.getItem("token"); 
 
-const res = await axios.post(
-  "http://localhost:3000/projects/create",
+const res = await axiosInstance.post('/projects/create',
   { name },
   {
     headers: {
