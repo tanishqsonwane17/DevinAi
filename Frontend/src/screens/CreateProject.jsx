@@ -20,7 +20,7 @@ const res = await axiosInstance.post('/projects/create',
 );
 
       console.log(res.data)
-      navigate('/') // create hone ke baad navigate
+      navigate('/') 
     } catch (err) {
       console.error(err)
     }
