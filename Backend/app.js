@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cookieParser());
 
-app.use(express.static(path.join('public')));
+app.use(express.static(join('public')));
 
 app.use(cors({
   credentials: true,
