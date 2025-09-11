@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config(); 
-import path from 'path'
+import {join, dirname} from 'path'
 import express from 'express';
 import cors from 'cors';
 import cookieParser  from 'cookie-parser'
@@ -30,6 +30,6 @@ app.get('/', (req, res) => {
 app.use('/projects', projectRoutes);
 app.use('/ai', airRoutes);
 app.get('*name', (req, res) => {
-  res.sendFile(path.join(__dirname,"..","/public/index.html"));
+  res.sendFile(join(dirname,"..","/public/index.html"));
 });
 export default app;
