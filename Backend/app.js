@@ -30,6 +30,6 @@ app.get('/', (req, res) => {
 app.use('/projects', projectRoutes);
 app.use('/ai', airRoutes);
 app.get('*name', (req, res) => {
-  res.sendFile(path.join(__dirname,'../public/index.html'));
+  res.sendFile(path.join('public', 'index.html'));
 });
 export default app;
