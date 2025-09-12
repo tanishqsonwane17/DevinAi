@@ -167,7 +167,7 @@ function WriteAiMessage(message, isOwn, isAI) {
           ? "bg-[#454545] text-white"
           : isAI
           ? "bg-[#38383897] text-white"
-          : "bg-[#515050] text-black"
+          : "bg-[#515050] text-white"
       }`}
     >
       <Markdown
@@ -223,7 +223,7 @@ function WriteAiMessage(message, isOwn, isAI) {
       : "mr-auto max-w-[70%]"
   } break-words whitespace-pre-wrap overflow-hidden rounded-md`}>
   <div
-    className={`p-2 rounded-md shadow-md ${
+    className={`p-2 rounded-md shadow-md  ${
       isOwn
         ? "!bg-[#515151] text-white"
         : isAI
@@ -266,9 +266,8 @@ function WriteAiMessage(message, isOwn, isAI) {
         </div>
 
         <div>   
-       <div className={`absolute top-0 left-0 h-full w-full bg-[#484848f8] z-50 transition-transform duration-300 ease-in-out ${
-            issidePanelOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+       <div className={`absolute top-0 left-0 h-full w-full bg-[#323232f8] z-50 transition-transform duration-300 ease-in-out ${
+            issidePanelOpen ? "translate-x-0" : "-translate-x-full" }`}
         >
           <header className="flex justify-between p-2 bg-[#1f1f1f] items-center">
             <h1 className="text-sm font-bold text-white uppercase">
@@ -276,8 +275,7 @@ function WriteAiMessage(message, isOwn, isAI) {
             </h1>
             <button
               className="cursor-pointer"
-              onClick={() => setissidePanelOpen(false)}
-            >
+              onClick={() => setissidePanelOpen(false)}>
               <i className="ri-arrow-left-s-line text-3xl text-white"></i>
             </button>
           </header>
@@ -362,7 +360,7 @@ function WriteAiMessage(message, isOwn, isAI) {
         )}
       </section>
      <section className="right h-full w-full flex-grow flex  bg-[#282828]">
-      <div className="explorer h-full pt-1 min-w-52 max-w-64 bg-[#262626]">
+      <div className="explorer h-full pt-1 md:min-w-52 md:max-w-64 bg-[#262626]">
             {Object.keys(fileTree).map((file, index) => (
               <button
                 key={index}
