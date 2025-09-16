@@ -17,7 +17,6 @@
         transition: transform 0.5s ease-in-out; /* Animation */
     }
 
-    /* Jab active ho ya class add ho */
     .explorer.active {
         transform: translateY(-50%); /* Upar aa jayega */
         height: 100vh; /* Agar height bhi badalni ho */
