@@ -162,7 +162,7 @@ function WriteAiMessage(message, isOwn, isAI) {
 
   return (
     <div
-      className={` overflow-y-hidden  p-2 rounded-md ${
+      className={` overflow-hidden   p-2 rounded-md ${
         isOwn
           ? "bg-[#454545] text-white"
           : isAI
@@ -183,7 +183,7 @@ function WriteAiMessage(message, isOwn, isAI) {
 }
 
   return (
-    <main className="h-screen w-screen flex">
+<main className="h-screen w-screen flex overflow-x-hidden overflow-y-hidden">
       <section className="left relative flex flex-col h-full w-full md:w-[20rem] bg-[#2f2f2f]">
         <header className="flex justify-between items-center p-4 bg-[#1f1f1f] text-white">
           <button
@@ -359,8 +359,8 @@ function WriteAiMessage(message, isOwn, isAI) {
           </div>
         )}
       </section>
-     <section className="right h-full w-full flex-grow flex  bg-[#282828]">
-      <div className="explorer h-full pt-1 md:min-w-52 md:max-w-64 bg-[#262626]">
+<section className="right h-full w-full flex-grow flex bg-[#282828] overflow-hidden">
+      <div className="explorer h-full pt- md:min-w-52 md:max-w-64 bg-[#262626]">
             {Object.keys(fileTree).map((file, index) => (
               <button
                 key={index}
@@ -373,19 +373,19 @@ function WriteAiMessage(message, isOwn, isAI) {
                 className="treeElem cursor-pointer px-1 flex items-center bg-[#282828] text-white w-full"
               >
                 <p 
-                className="font-semibold active:bg-[#272727] bg-[#1d1d1d7e] flex items-center mt-1 border-b-[1px] border-[#939393]  justify-center h-14 w-full ">{file}</p>
+                className="font-semibold active:bg-[#272727] bg-[#1d1d1d7e] flex items-center mt-1 border-b-[1px] border-[#535353d0]  justify-center h-10 text-sm text-[#e6e6e6] w-full ">{file}</p>
               </button>
             ))}
       </div>
       {currentFile && (
       <div className="codeEditor flex flex-col flex-grow h-full">
           <div className="top justify-between  flex  w-full gap-[1px]">
-            <div className="flex w-full py-4 border-b-1 ">
+            <div className="flex w-full py-3 border-b-1 ">
   {openFiles.map((file, index) => (
     <button
       key={index}
       onClick={() => setCurrentFile(file)}
-      className={`open-file cursor-pointer border-r border-r-[#939393] flex justify-center items-center px-4 gap-2 flex-1 ${
+      className={`open-file cursor-pointer border-r border-r-[#939393] flex justify-center items-center gap-2 flex-1 ${
         currentFile === file
           ? "bg-[#262626] text-white"
           : "bg-[#262626] text-white"
@@ -402,18 +402,7 @@ function WriteAiMessage(message, isOwn, isAI) {
   {status && (
     <div className="text-xs text-gray-300 font-mono">{status}</div>
   )}
- <button
-  onClick={() => {
-    if (iframe) {
-      setShowOutput(true);
-    } else {
-      setStatus("⚠️ No server running yet. Run project first.");
-    }
-  }}
-  className="p-2 px-4 bg-[#4646467e] text-white "
->
-  See
-</button>
+ 
 
 </div>
 
@@ -435,25 +424,26 @@ function WriteAiMessage(message, isOwn, isAI) {
 
       const exitCode = await installProcess.exit;
       if (exitCode !== 0) {
-        setStatus("❌ Installation failed");
+        setStatus(" Installation failed");
         return;
       }
 
       setStatus("Starting server...");
-      const runProcess = await webContainer.spawn("npm", ["start"]);
+      const runProcess = await webContainer.spawn("npm", ["start"], {
+        env: { PORT: "4000" } 
+      });
       runProcess.output.pipeTo(
         new WritableStream({
-          write(chunk) {
-            console.log("start:", stripAnsi(chunk));
-          },
+
+          
         })
       );
 
       webContainer.on("server-ready", (port, url) => {
-  console.log(port, url);
-  setIFrame(url);
-  setStatus("✅ Server is running - Click 'View Output'");
-});
+        console.log(port, url);
+        setIFrame(url); // <- iframe set ho raha
+        setStatus("✅ Server is running - Click 'View Output'");
+      });
 
     } catch (err) {
       console.error(err);
@@ -464,6 +454,7 @@ function WriteAiMessage(message, isOwn, isAI) {
 >
   <VscRunAll />
 </button>
+
 
 
             </div>
@@ -496,14 +487,57 @@ function WriteAiMessage(message, isOwn, isAI) {
       </div>
         )}
         {iframe && !showOutput && (
+<button
+  onClick={() => {
+    if (iframe) {
+      setShowOutput(true);
+    } else {
+      setStatus("⚠️ No server running yet. Run project first.");
+    }
+  }}
+  className="p-2 px-4 bg-[#4646467e] text-white "
+>
+  See
+</button>
+
+)}
+{/* View Output Button (sirf jab panel band ho) */}
+{iframe && !showOutput && (
   <button
-    onClick={() => setShowOutput(true)}
-    className="px-4 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700 transition"
+    onClick={() => {
+      if (iframe) {
+        setShowOutput(true);
+      } else {
+        setStatus("⚠️ No server running yet. Run project first.");
+      }
+    }}
+    className="p-2 px-4 bg-[#4646467e] text-white fixed bottom-4 right-4 z-50"
   >
     View Output
   </button>
 )}
-        {iframe && webContainer && <iframe src={iframe} className="w-1/2 h-full"></iframe>}
+
+{/* Output Panel */}
+<div
+  className={`absolute top-0 right-0 h-full w-[100%] bg-[#ffffff] z-40 transition-transform duration-300 ease-in-out ${
+    showOutput ? "translate-x-0" : "translate-x-full"
+  } overflow-hidden`}
+>
+  <header className="flex justify-between items-center p-2 bg-[#000] text-white">
+    <h1 className="font-bold text-sm">Project Output</h1>
+    <button
+      className="text-xl font-bold cursor-pointer"
+      onClick={() => setShowOutput(false)}
+    >
+      &times;
+    </button>
+  </header>
+  <iframe
+    src={iframe}
+    className="w-full h-full border-none"
+    sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+
        </section>
 
     </main>

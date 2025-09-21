@@ -67,7 +67,7 @@ Example 1:
     }
   },
   "buildCommand": { "mainItem": "npm", "commands": ["install"] },
-  "startCommand": { "mainItem": "node", "commands": ["app.js"] }
+  "startCommand": { "mainItem": "node", "commands": ["app.js"] },
 }
 
 Example 2:

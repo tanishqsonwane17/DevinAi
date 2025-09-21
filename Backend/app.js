@@ -22,7 +22,7 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(cors({
   credentials: true,
-  origin: 'https://bixi-devin.onrender.com'
+  origin: 'http://localhost:5173'
 }));
 
 app.use(morgan('dev'));
