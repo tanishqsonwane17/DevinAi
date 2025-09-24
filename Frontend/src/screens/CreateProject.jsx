@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../config/Axios'
+import { motion } from 'framer-motion'
 
 const CreateProject = () => {
   const navigate = useNavigate()
@@ -8,17 +9,12 @@ const CreateProject = () => {
 
   const handleCreateProject = async () => {
     try {
-    const token = localStorage.getItem("token"); 
-
-const res = await axiosInstance.post('/projects/create',
-  { name },
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
-
+      const token = localStorage.getItem("token"); 
+      const res = await axiosInstance.post(
+        '/projects/create',
+        { name },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       console.log(res.data)
       navigate('/') 
     } catch (err) {
@@ -27,31 +23,37 @@ const res = await axiosInstance.post('/projects/create',
   }
 
   return (
-    <div className='h-screen w-full flex justify-center items-center bg-[#323232]'>
-      <div className='h-[40%] w-[30%] bg-[#414141] rounded-2xl'>
-        <div className='h-full w-full '>
-          <h2 className='text-center text-[#e6e6e6] p-4 text-3xl tracking- font-semibold'>
-            Create Project
-          </h2>
-          <div className='h-40 px-20 gap-4 w-full flex justify-center items-center flex-col'>
-            {/* Project Name Input */}
-            <input
-              type="text"
-              className='border border-[#e6e6e68b] text-white py-2 w-full px-2 rounded-sm'
-              placeholder='Project name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+    <div className='min-h-screen w-full flex justify-center items-center bg-[#323232]'>
 
-            {/* Submit Button */}
-            <button
-              onClick={handleCreateProject}
-              className=' border border-[#e6e6e68b] bg-black text-white py-2 rounded-xl cursor-pointer w-full px-2 '>
-              Create Project
-            </button>
-          </div>
-        </div>
-      </div>
+      {/* Card */}
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className='w-full max-w-md p-8 bg-[#414141] rounded-2xl shadow-2xl border border-[#e6e6e6]'
+      >
+        <h2 className='text-3xl text-center font-bold text-white mb-6'>
+          Create Project
+        </h2>
+
+        <motion.input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder='Project name'
+          whileFocus={{ scale: 1.02, borderColor: '' }}
+          className='w-full px-4 py-3 rounded-lg border border-[#e6e6e6a8] bg-transparent text-white focus:outline-none transition-colors mb-5'
+        />
+
+        <motion.button
+          onClick={handleCreateProject}
+          whileHover={{ scale: 1.05, cursor:'pointer' }}
+          whileTap={{ scale: 0.95 }}
+          className='w-full py-3 rounded-xl bg-[#323232] border border-[#e6e6e6] text-white font-semibold transition-all'
+        >
+          Create Project
+        </motion.button>
+      </motion.div>
     </div>
   )
 }

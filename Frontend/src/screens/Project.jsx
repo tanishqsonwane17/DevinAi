@@ -164,10 +164,10 @@ function WriteAiMessage(message, isOwn, isAI) {
     <div
       className={` overflow-hidden   p-2 rounded-md ${
         isOwn
-          ? "bg-[#454545] text-white"
+          ? "bg-white text-black"
           : isAI
-          ? "bg-[#38383897] text-white"
-          : "bg-[#515050] text-white"
+          ? "bg-white text-black"
+          : "bg-white text-black"
       }`}
     >
       <Markdown
@@ -202,7 +202,7 @@ function WriteAiMessage(message, isOwn, isAI) {
         </header>
         {/* Chat Section */}
         <div className="flex flex-col justify-between flex-grow h-[90%]">
-        <div className="message-box flex-grow overflow-y-auto p-4 space-y-3 scrollbar-hide">
+        <div className="message-box flex-grow overflow-y-auto p-4 space-y-3 bg-[#424242] scrollbar-hide">
          {chatMessages.map((msg, index) => {
            const isOwn =
              msg.sender === user._id ||
@@ -225,18 +225,15 @@ function WriteAiMessage(message, isOwn, isAI) {
   <div
     className={`p-2 rounded-md shadow-md  ${
       isOwn
-        ? "!bg-[#515151] text-white"
+        ? "!bg-[#8e8e8e63] text-black"
         : isAI
-        ? "!bg-[#595959] text-white"
-        : "!bg-[#a3a3a367] text-black"
+        ? "!bg-[#707070] text-black"
+        : "!bg-[#d4d4d4] text-black"
     }`}
   >
     <small className="text-xs text-gray-200 font-bold">
       {isOwn ? "You" : msg.sender?.email || "Unknown"}
     </small>
-
-    {/* Yaha test karke dekho */}
-    {/* Agar WriteAiMessage bg white kar raha hai to replace with simple text */}
     <div className="mt-1 break-words">
       {WriteAiMessage ? WriteAiMessage(msg.message, isOwn, isAI) : msg.message}
     </div>
@@ -248,17 +245,17 @@ function WriteAiMessage(message, isOwn, isAI) {
             <div ref={bottomRef}></div>
           </div>
 
-          <div className="w-full p-2 bg-[#a3a3a367] flex gap-2 bottom-0">
+          <div className="w-full p-2 bg-white flex gap-2 bottom-0">
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               type="text"
               placeholder="Type your message.. or @ai"
-              className="bg-[#20202090] p-2 px-4 w-full text-white text-sm border-gray-300 rounded-md outline-none"
+              className="bg-[#f2f2f2] p-2 px-4 w-full text-black text-sm border-gray-300 rounded-md outline-none"
             />
             <button
               onClick={send}
-              className="p-2 bg-[#1e1e1eab] hover:bg-[#202020] rounded-md text-white cursor-pointer"
+              className="p-2 bg-[#000000] hover:bg-[#202020] rounded-md text-white cursor-pointer"
             >
               <IoMdSend className="text-2xl" />
             </button>
@@ -442,12 +439,12 @@ function WriteAiMessage(message, isOwn, isAI) {
       webContainer.on("server-ready", (port, url) => {
         console.log(port, url);
         setIFrame(url); // <- iframe set ho raha
-        setStatus("✅ Server is running - Click 'View Output'");
+        setStatus(" Server is running - Click 'View Output'");
       });
 
     } catch (err) {
       console.error(err);
-      setStatus("❌ Error occurred");
+      setStatus(" Error occurred");
     }
   }}
   className="p-2 px-4 bg-[#4646467e] text-white "
