@@ -277,19 +277,24 @@ function WriteAiMessage(message, isOwn, isAI) {
             </button>
           </header>
           <div className="users">
-            {project.users &&
-              project.users.map((users) => (
-                <div
-                  key={users._id}
-                  className="user hover:text-white flex gap-2 items-center cursor-pointer hover:bg-[#2f2f2f] p-4">
-                  <div className="h-8 w-8 rounded-full bg-[#1f1f1f] flex items-center justify-center">
-                    <i className="ri-user-3-fill text-white"></i>
-                  </div>
-                  <h2 className="font-semibold text-md text-white ">
-                    {users.email}
-                  </h2>
-                </div>
-              ))}
+          {project?.users?.length > 0 ? (
+  project.users.map((user) => (
+    <div
+      key={user._id}
+      className="user hover:text-white flex gap-2 items-center cursor-pointer hover:bg-[#2f2f2f] p-4"
+    >
+      <div className="h-8 w-8 rounded-full bg-[#1f1f1f] flex items-center justify-center">
+        <i className="ri-user-3-fill text-white"></i>
+      </div>
+      <h2 className="font-semibold text-md text-white ">
+        {user.email}
+      </h2>
+    </div>
+  ))
+) : (
+  <p className="text-gray-400 p-4">No collaborators yet.</p>
+)}
+
           </div>
         </div>
 
@@ -451,9 +456,6 @@ function WriteAiMessage(message, isOwn, isAI) {
 >
   <VscRunAll />
 </button>
-
-
-
             </div>
           </div>
        <div className="bottom flex flex-grow"> 
@@ -478,7 +480,6 @@ function WriteAiMessage(message, isOwn, isAI) {
   }}
   theme="vs-dark"
 />
-
         )}
        </div>
       </div>
@@ -534,9 +535,7 @@ function WriteAiMessage(message, isOwn, isAI) {
     className="w-full h-full border-none"
     sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
-
        </section>
-
     </main>
   );
 };

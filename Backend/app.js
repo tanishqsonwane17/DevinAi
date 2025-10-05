@@ -22,7 +22,6 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(cors({
   credentials: true,
-  origin: 'https://bixi-devin.onrender.com'
 }));
 
 app.use(morgan('dev'));
