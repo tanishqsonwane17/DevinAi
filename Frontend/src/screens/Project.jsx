@@ -345,7 +345,7 @@ function WriteAiMessage(message, isOwn, isAI) {
                     .filter((user) => selectedUserId.includes(user._id))
                     .map((user) => (
                       <div key={user._id} className="text-gray-700">
-                        {user.username}
+                        {user.email}
                       </div>
                     ))}
                 </div>

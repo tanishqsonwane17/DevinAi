@@ -9,13 +9,6 @@ let userSchema = mongoose.Schema({
         minLength : [5, 'Email must be at least 5 characters long'],
         maxLength: [50, 'Email must be at most 50 characters long'],
     },
-    username:{
-        type: String,
-        required: true,
-        unique: true,
-        minLength : [3, 'Username must be at least 3 characters long'],
-        maxLength: [50, 'Username must be at most 50 characters long'],
-    },
     password: {  
         type: String,
         required: true,

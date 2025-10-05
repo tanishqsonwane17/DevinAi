@@ -12,7 +12,6 @@ export const createUserController = async (req, res) => {
     const user = await userService.createUser({
       email: req.body.email,
       password: req.body.password,
-      username: req.body.username,
     });
 
     const token = user.generateAuthToken();

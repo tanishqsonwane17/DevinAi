@@ -8,14 +8,13 @@ import { motion } from 'framer-motion';
 const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   const { setUser } = useContext(UserContext)
 
   async function handleSubmit(e) {
     e.preventDefault()
-    await axiosInstance.post('/users/register', { email, password, username })
+    await axiosInstance.post('/users/register', { email, password })
       .then((response) => {
         localStorage.setItem('token', response.data.token)
         setUser(response.data.user)
@@ -39,19 +38,6 @@ const Register = () => {
 
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Email */}
-          <div>
-            <label className="block text-gray-300 mb-1" htmlFor="username">Username</label>
-            <motion.input
-              whileFocus={{ scale: 1.02, borderColor: '#facc15' }}
-              className="w-full px-4 py-3 rounded-lg text-white border border-[#e6e6e6a8] focus:outline-none transition-colors duration-200"
-              type="text"
-              id="username"
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="username"
-              autoComplete="username"
-              required
-            />
-          </div>
           <div>
             <label className="block text-gray-300 mb-1" htmlFor="email">Email</label>
             <motion.input
