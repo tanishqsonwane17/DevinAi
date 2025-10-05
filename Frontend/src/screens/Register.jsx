@@ -39,6 +39,19 @@ const Register = () => {
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Email */}
           <div>
+            <label className="block text-gray-300 mb-1" htmlFor="email">Username</label>
+            <motion.input
+              whileFocus={{ scale: 1.02, borderColor: '#facc15' }}
+              className="w-full px-4 py-3 rounded-lg text-white border border-[#e6e6e6a8] focus:outline-none transition-colors duration-200"
+              type="text"
+              id="username"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="username"
+              autoComplete="email"
+              required
+            />
+          </div>
+          <div>
             <label className="block text-gray-300 mb-1" htmlFor="email">Email</label>
             <motion.input
               whileFocus={{ scale: 1.02, borderColor: '#facc15' }}
